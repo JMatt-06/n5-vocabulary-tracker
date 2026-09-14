@@ -1,0 +1,17 @@
+# user_stories
+
+1 - As a user, I want to be able to add new vocabulary words so that I can build a personalized list of terms I will be studying
+
+2 - As a user, I want to view all vocabulary I've added so that I can see what I have to learn
+
+3 - As a user, I want to be able to edit vocabulary entries so that I can correct mistakes 
+
+4 - As a user, I want to be able to delete vocabulary so that I can remove words I no longer need to memorize
+
+5 - As a user, I want to be able to search for words by character or english meaning so that I can find vocabulary quickly
+
+6 - As a user, I want to be able to mark words as "known", "learning", or "please review", so I can track my progress
+
+7 - As a user, I want to view the different forms of characters, so I can learn all aspects of the word
+
+8 - As a user, I want to see how many words I have completed so far, so I can see how far I have come in learning

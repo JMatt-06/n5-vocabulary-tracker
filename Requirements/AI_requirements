@@ -1,0 +1,127 @@
+Updated todo list
+
+I’ll inspect the existing README and requirement notes first, then turn the project’s current intent into a practical set of functional and non-functional requirements.
+
+Search complete: Inspect app requirements
+
+Searched codebase for "vocabulary tracker app domain users workflows", no results
+
+Searched codebase for "existing user stories elicitation notes requirements", no results
+
+Searched for files matching `**/README*`, 1 match
+
+Searched for files matching `**/Requirements*`, no matches
+
+Searched for regex `vocabulary|tracker|app|VocabularyTracker`, 7 results
+
+No matches found. Your search pattern might be excluded completely by either the search.exclude settings or .*ignore files.
+If you believe that it should have results, you can check into the .*ignore files and the exclude setting (here are some excluded patterns for reference:[**/node_modules,**/bower_components,**/*.code-search]).
+Then if you want to include those files you can call the tool again by setting "includeIgnoredFiles" to true.
+
+Searched for files matching `**/Requirements/**`, 3 matches
+
+Searched for regex `JLPT N5|Japanese vocabulary|study words|memorize`, 2 results
+
+Searched for regex `add new vocabulary|view all vocabulary|edit vocabulary|delete vocabulary|search for words`, 5 results
+
+Read 
+
+Read 
+
+Searched codebase for "non-functional requirements website track study Japanese vocabulary", 1 result
+
+Searched codebase for "user workflows add view edit delete search vocabulary words", 1 result
+
+Searched for regex `track and study|personalized list|mark as known|please review|progress`, 3 results
+
+Read 
+
+Read 
+
+The current artifacts define a focused single-user study tool: personal vocabulary CRUD, search, progress states, character forms, and completion tracking, with multilingual UI, font scaling, and a 300 ms search target. I’m checking the elicitation log now for any decisions or implied edge cases before drafting the requirements.
+
+Read 
+
+Based on the existing notes, the app could have these requirements:
+
+**Functional requirements**
+
+1. Users can add a vocabulary entry with:
+   - Japanese word or kanji
+   - Hiragana/katakana reading
+   - English meaning
+   - Part of speech
+   - Example sentence
+   - Alternate or conjugated forms
+
+2. Users can view all saved vocabulary in a list or table.
+
+3. Users can edit existing vocabulary entries.
+
+4. Users can delete entries, with a confirmation step.
+
+5. Users can search by Japanese characters, reading, or English meaning.
+
+6. Users can filter vocabulary by learning status:
+   - Known
+   - Learning
+   - Please review
+
+7. Users can change the learning status of each word.
+
+8. Users can view progress, including:
+   - Total vocabulary count
+   - Known-word count
+   - Learning-word count
+   - Review-word count
+   - Completion percentage
+
+9. Users can view the different forms or conjugations associated with a word.
+
+10. The app should preserve vocabulary and progress between sessions.
+
+11. The app should provide useful empty, loading, validation, and error states.
+
+**Accessibility and non-functional requirements**
+
+1. The interface supports multiple display languages through a language selector.
+
+2. Users can increase or decrease font size.
+
+3. Text should maintain readable contrast and controls should be keyboard accessible.
+
+4. Search results should appear within 300 ms for normal character or English queries.
+
+5. The interface should work on desktop and mobile screen sizes.
+
+6. User data should not be lost when the application is refreshed or closed.
+
+7. Destructive actions, such as deletion, should be recoverable or explicitly confirmed.
+
+**Possible data model**
+
+```text
+VocabularyEntry
+- id
+- kanji
+- reading
+- meaning
+- partOfSpeech
+- exampleSentence
+- alternateForms
+- status
+- createdAt
+- updatedAt
+```
+
+**Requirements that should be clarified**
+
+- Is the app for one user or multiple accounts?
+- Should it include a preloaded JLPT N5 vocabulary list?
+- Does “known” mean completed, or can users mark a word known without studying it?
+- Should progress be based only on “known” words?
+- Are spaced-repetition quizzes or flashcards required?
+- Should vocabulary be importable/exportable?
+- Which interface languages must be supported initially?
+
+These requirements extend the existing stories in `user_stories` and constraints in `non-functional`.
