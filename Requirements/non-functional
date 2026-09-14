@@ -1,0 +1,7 @@
+# non-functional
+
+1 - The UI must support multiple languages and can interchange between them with a dropdown menu under "languages"
+
+2 - The UI must support font size scaling for accessibility
+
+3 - Search results must return within 300 ms for character/word queries

@@ -1,0 +1,38 @@
+# AI_elicit_log
+
+What the AI included that wasn't thought of before
+1 - Part of Speech of words
+2 - Example Sentence for words
+3 - Alternate Forms of words
+4 - User data should be kept when exiting the app
+5 - The interface working on mobile and desktop screens
+6 - Users can see all vocabulary in a table
+
+Questions the AI asked that wasn't thought of before
+1 - Is the app for one user or multiple accounts?
+2 - Should it include a preloaded JLPT N5 vocabulary list?
+3 - Does “known” mean completed, or can users mark a word known without studying it?
+4 - Should progress be based only on “known” words?
+5 - Are spaced-repetition quizzes or flashcards required?
+6 - Should vocabulary be importable/exportable?
+7 - Which interface languages must be supported initially?
+
+Answers for the AI Questions
+1 - For one user
+2 - Yes
+3 - Known means completed
+4 - Yes
+5 - Flashcards required
+6 - Should be made where you can create and delete words known
+7 - English, Spanish, Japanese, Chinese
+
+What the AI included that will not be a part of this project
+1 - Alternate Forms of words because there are too many to learn accurately
+2 - Grammar conjugations
+3 - Example sentences of words
+
+What the AI included that will be a part of this project
+1 - Part of speech of wards
+2 - User data should be kept when exiting the app
+3 - The user interface works for both mobile and desktop screens
+4 - Users can see all vocabulary inside a table
