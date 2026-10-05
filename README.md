@@ -4,7 +4,7 @@ A website to track and study Japanese JLPT N5 vocabulary
 ## Run locally
 
 ```sh
-python -m pip install -r requirements-dev.txt
+python -m pip install -r Requirements/requirements-dev.txt
 python app.py
 ```
 
