@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>N5 Vocabulary Tracker</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">JLPT N5 / PERSONAL STUDY LOG</p>
+      <h1>Build your word shelf.</h1>
+      <p class="intro">Add the words you are learning and keep their progress close at hand.</p>
+    </header>
+    <section class="panel" aria-labelledby="add-heading">
+      <h2 id="add-heading">Add vocabulary</h2>
+      <form id="vocabulary-form">
+        <label>Kanji <input name="kanji" required placeholder="食べる"></label>
+        <label>Reading <input name="reading" required placeholder="たべる"></label>
+        <label>Meaning <input name="meaning" required placeholder="to eat"></label>
+        <label>Part of speech <input name="partOfSpeech" required placeholder="verb"></label>
+        <button type="submit">Save word</button>
+        <p id="form-message" role="status"></p>
+      </form>
+    </section>
+    <section aria-labelledby="list-heading">
+      <div class="section-heading"><h2 id="list-heading">Your vocabulary</h2><span id="count">0 words</span></div>
+      <p id="empty-state">Your shelf is empty. Add your first word above.</p>
+      <div class="table-wrap"><table hidden><thead><tr><th>Word</th><th>Reading</th><th>Meaning</th><th>Type</th><th>Status</th></tr></thead><tbody id="vocabulary-list"></tbody></table></div>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>

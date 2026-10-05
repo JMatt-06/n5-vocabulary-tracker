@@ -1,13 +1,13 @@
 # Decision
-The application will use browser local storage to save vocabulary entries and their learning statuses 
+The application will use a Python HTTP server and SQLite to save vocabulary entries and their learning statuses.
 
 # Context
-The application needs to preserve vocabulary and learning progress when the user refreshes the page or closes and reopens the application. The app is also intended to be a relatively small individual project, so a separate database and backend would add unnecessary complexity
+The application needs to preserve vocabulary and learning progress when the user refreshes the page or closes and reopens the application. The walking skeleton must prove a real request from the browser through the backend to persistent storage and back, so SQLite provides a small structured store without introducing a separate database service.
 
 # Alternatives Considered
-Browser Local Storage - simple, no backend required, works well for small single-user application
-JSON file - Easy to understand, but not practical for persitent browser-based user data
-SQL database - Provides structured persistent storage but requires a backend/database setup
+SQLite - provides structured persistent storage in the repository with no separate database service
+Browser Local Storage - simple, but does not prove the backend and storage layers or support server-side requests
+JSON file - easy to understand, but less suitable for structured queries and concurrent requests
 
 # Consequences
-Using local storage makes the application simpler to develop and allows vocabulary to persist between sessions without requiring a server. However, the data is stored only in the user's browser, so it would not automatically synchronize between different devices.
+Using SQLite keeps the initial deployment small while proving the full request path and preserving vocabulary between sessions. The application remains single-user and does not automatically synchronize between different devices.

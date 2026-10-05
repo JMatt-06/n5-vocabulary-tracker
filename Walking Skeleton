@@ -1,0 +1,6 @@
+Walking skeleton: add and list vocabulary.
+
+The browser form sends a real POST request to the Python HTTP server. The
+server validates the entry, writes it to SQLite, and returns it. The page then
+loads the saved records with a GET request. `tests/test_walking_skeleton.py`
+proves this path over HTTP, including persistence after reopening the database.
