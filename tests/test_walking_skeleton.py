@@ -51,3 +51,36 @@ def test_vocabulary_survives_a_real_http_round_trip(tmp_path):
             server.shutdown()
             thread.join()
             server.server_close()
+
+
+def test_user_can_add_and_list_vocabulary_in_newest_first_order(tmp_path):
+    server = create_server(("127.0.0.1", 0), tmp_path / "vocabulary.sqlite3")
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        first_status, first = request(
+            server,
+            "POST",
+            "/api/vocabulary",
+            {"kanji": "水", "reading": "みず", "meaning": "water", "partOfSpeech": "noun"},
+        )
+        second_status, second = request(
+            server,
+            "POST",
+            "/api/vocabulary",
+            {"kanji": "本", "reading": "ほん", "meaning": "book", "partOfSpeech": "noun"},
+        )
+
+        status, entries = request(server, "GET", "/api/vocabulary")
+
+        assert first_status == 201
+        assert second_status == 201
+        assert first["status"] == "learning"
+        assert second["status"] == "learning"
+        assert status == 200
+        assert [entry["id"] for entry in entries] == [second["id"], first["id"]]
+        assert entries[0]["meaning"] == "book"
+    finally:
+        server.shutdown()
+        thread.join()
+        server.server_close()
