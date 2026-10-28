@@ -33,6 +33,18 @@ class VocabularyStore:
     def _connect(self):
         return sqlite3.connect(self.database_path)
 
+    @staticmethod
+    def _entry_from_row(row):
+        return {
+            "id": row[0],
+            "kanji": row[1],
+            "reading": row[2],
+            "meaning": row[3],
+            "partOfSpeech": row[4],
+            "status": row[5],
+            "createdAt": row[6],
+        }
+
     def list_entries(self):
         with self._connect() as connection:
             rows = connection.execute(
@@ -42,18 +54,7 @@ class VocabularyStore:
                 ORDER BY id DESC
                 """
             ).fetchall()
-        return [
-            {
-                "id": row[0],
-                "kanji": row[1],
-                "reading": row[2],
-                "meaning": row[3],
-                "partOfSpeech": row[4],
-                "status": row[5],
-                "createdAt": row[6],
-            }
-            for row in rows
-        ]
+        return [self._entry_from_row(row) for row in rows]
 
     def add_entry(self, entry):
         required_fields = ("kanji", "reading", "meaning", "partOfSpeech")
@@ -71,8 +72,15 @@ class VocabularyStore:
                 """,
                 tuple(entry[field].strip() for field in required_fields) + (status,),
             )
-            entry_id = cursor.lastrowid
-        return next(item for item in self.list_entries() if item["id"] == entry_id)
+            row = connection.execute(
+                """
+                SELECT id, kanji, reading, meaning, part_of_speech, status, created_at
+                FROM vocabulary
+                WHERE id = ?
+                """,
+                (cursor.lastrowid,),
+            ).fetchone()
+        return self._entry_from_row(row)
 
 
 class VocabularyHandler(SimpleHTTPRequestHandler):

@@ -1,0 +1,89 @@
+# M7 Document Refactor
+
+## Smell and note
+
+`VocabularyStore.add_entry` reloaded and scanned the entire vocabulary list
+just to return the row it had inserted. This was an indirect extra query and
+made a single-entry operation depend on list retrieval and ordering.
+
+The refactor extracts the row-to-API mapping into `_entry_from_row` and fetches
+the inserted row directly by its database id on the existing connection.
+Validation, ordering, and the returned entry shape are unchanged. Adding an
+entry is now easier to follow and does not reload unrelated entries.
+
+## Test run before refactoring
+
+Command:
+
+```text
+/usr/local/py-utils/venvs/pytest/bin/python -m pytest -q tests/test_walking_skeleton.py tests/test_vocabulary_store.py
+```
+
+Result:
+
+```text
+.........                                                                [100%]
+9 passed in 1.85s
+```
+
+## Before-and-after diff
+
+```diff
+diff --git a/app.py b/app.py
+@@
+     def _connect(self):
+         return sqlite3.connect(self.database_path)
+
++    @staticmethod
++    def _entry_from_row(row):
++        return {
++            "id": row[0],
++            "kanji": row[1],
++            "reading": row[2],
++            "meaning": row[3],
++            "partOfSpeech": row[4],
++            "status": row[5],
++            "createdAt": row[6],
++        }
+@@
+-        return [
+-            {
+-                "id": row[0],
+-                "kanji": row[1],
+-                "reading": row[2],
+-                "meaning": row[3],
+-                "partOfSpeech": row[4],
+-                "status": row[5],
+-                "createdAt": row[6],
+-            }
+-            for row in rows
+-        ]
++        return [self._entry_from_row(row) for row in rows]
+@@
+-            entry_id = cursor.lastrowid
+-        return next(item for item in self.list_entries() if item["id"] == entry_id)
++            row = connection.execute(
++                """
++                SELECT id, kanji, reading, meaning, part_of_speech, status, created_at
++                FROM vocabulary
++                WHERE id = ?
++                """,
++                (cursor.lastrowid,),
++            ).fetchone()
++        return self._entry_from_row(row)
+```
+
+## Test run after refactoring
+
+The exact same command was run unchanged:
+
+```text
+/usr/local/py-utils/venvs/pytest/bin/python -m pytest -q tests/test_walking_skeleton.py tests/test_vocabulary_store.py
+```
+
+Result:
+
+```text
+.........                                                                [100%]
+9 passed in 1.59s
+```
